@@ -1,3 +1,4 @@
+# インポートするライブラリ
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -6,54 +7,42 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
 )
 import os
-
-app = Flask(__name__)
-
-# herokuの環境変数に設定された、LINE DevelopersのアクセストークンとChannelSecretを
-# 取得するコード
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
-YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(YOUR_CHANNEL_SECRET)
-
-# herokuへのデプロイが成功したかどうかを確認するためのコード
+# 軽量なウェブアプリケーションフレームワーク:Flask
+app = Flask(__name__)  # 環境変数からLINE Access Tokenを設定
+# 環境変数からLINE Channel Secretを設定
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 
-@app.route("/")
-def hello_world():
-    return "hello world!"
-
-
-# LINE DevelopersのWebhookにURLを指定してWebhookからURLにイベントが送られるようにする
 @app.route("/callback", methods=['POST'])
 def callback():
-    # リクエストヘッダーから署名検証のための値を取得
+    # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
-
-    # リクエストボディを取得
+    # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
-    # 署名を検証し、問題なければhandleに定義されている関数を呼ぶ
+    # handle webhook body
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+# MessageEvent
 
 
-# 以下でWebhookから送られてきたイベントをどのように処理するかを記述する
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=event.message.text)
+    )
 
 
-# ポート番号の設定
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
+    port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
