@@ -1,11 +1,11 @@
 # インポートするライブラリ
+from flask import Flask, request, abort
 import psycopg2
+from psycopg2.extras import DictCursor
 import re
 import json
 import sys
 import os
-from psycopg2.extras import DictCursor
-from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -15,8 +15,6 @@ from linebot.exceptions import (
 from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction, PostbackEvent
 )
-
-print(psycopg2.apilevel)
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)  # 環境変数からLINE Access Tokenを設定
