@@ -1,4 +1,5 @@
 # インポートするライブラリ
+import psycopg2
 import re
 import json
 import sys
@@ -14,7 +15,7 @@ from linebot.exceptions import (
 from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction, PostbackEvent
 )
-import psycopg2
+
 print(psycopg2.apilevel)
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
