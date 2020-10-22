@@ -41,6 +41,15 @@ def callback():
         abort(400)
     return 'OK'
 
+
+@handler.add(FollowEvent)
+def on_follow(event):
+    reply_token = event.reply_token
+    user_id = event.source.user_id
+    profiles = line_bot_api.get_profile(user_id=user_id)
+    display_name = profiles.display_name
+
+    # DBへの保存
     try:
         conn = psycopg2.connect(DATABASE_URL)
         c = conn.cursor()
@@ -59,7 +68,14 @@ def callback():
         conn.close()
         c.close()
 
+    # メッセージの送信
+    line_bot_api.reply_message(
+        reply_token=reply_token,
+        messages=TextSendMessage(text='友達追加ありがとう！')
+    )
 
+
+@handler.add(PostbackEvent)
 @ handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
