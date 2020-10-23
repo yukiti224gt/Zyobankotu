@@ -94,20 +94,24 @@ def handle_message(event):
                     actions=[
                         PostbackTemplateAction(
                             label=ret[0][0].strftime(
-                                "%H:%M") + "発 "
+                                "%H:%M") + "発 ",
+                            data="is_show=0"
                         ),
                         PostbackTemplateAction(
                             label=ret[1][0].strftime(
-                                "%H:%M") + "発 "
+                                "%H:%M") + "発 ",
+                            data="is_show=1"
                         ),
 
                         PostbackTemplateAction(
                             label=ret[2][0].strftime(
-                                "%H:%M") + "発 "
+                                "%H:%M") + "発 ",
+                            data="is_show=2"
                         ),
                         PostbackTemplateAction(
                             label=ret[3][0].strftime(
-                                "%H:%M") + "発 "
+                                "%H:%M") + "発 ",
+                            data="is_show=3"
                         )
                     ]
                 )
