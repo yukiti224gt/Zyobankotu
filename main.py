@@ -81,8 +81,8 @@ def handle_message(event):
         c.execute(sql)
         ret = c.fetchall()
 
-        print(ret[0])
-        print(ret[1])
+        print(ret[0][0])
+        print(ret[1][0])
 
         line_bot_api.reply_message(
             event.reply_token,
