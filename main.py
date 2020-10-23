@@ -89,20 +89,20 @@ def handle_message(event):
                     text="バス時刻表検索",
                     actions=[
                         PostbackTemplateAction(
-                            label=ret[0].strftime(
+                            label=ret[0][0].strftime(
                                 "%H:%M") + "発 "
                         ),
                         PostbackTemplateAction(
-                            label=ret[1].strftime(
+                            label=ret[1][0].strftime(
                                 "%H:%M") + "発 "
                         ),
 
                         PostbackTemplateAction(
-                            label=ret[2].strftime(
+                            label=ret[2][0].strftime(
                                 "%H:%M") + "発 "
                         ),
                         PostbackTemplateAction(
-                            label=ret[3].strftime(
+                            label=ret[3][0].strftime(
                                 "%H:%M") + "発 "
                         )
                     ]
