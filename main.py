@@ -24,7 +24,7 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-DATABASE_URL = os.environ.get('HEROKU_POSTGRESQL_ONYX_URL')
+DATABASE_URL = os.environ.get('POSTGRESQL_DB_URL')
 
 
 @ app.route("/callback", methods=['POST'])
