@@ -113,6 +113,12 @@ def handle_message(event):
                 )
             )
         )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(
+                text="出発したい時間を入力してください！\nその後の直近５件の時刻を教えます。\n(例)09:00, 12:00, 15:30")
+        )
 
 
 if __name__ == "__main__":
