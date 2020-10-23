@@ -72,11 +72,6 @@ def on_follow(event):
 @handler.add(PostbackEvent)
 @ handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text)
-    )
-
     m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
     conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
