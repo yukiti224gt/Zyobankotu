@@ -68,12 +68,6 @@ def on_follow(event):
         conn.close()
         c.close()
 
-    # メッセージの送信
-    line_bot_api.reply_message(
-        reply_token=reply_token,
-        messages=TextSendMessage(text='友達追加ありがとう！')
-    )
-
 
 @handler.add(PostbackEvent)
 @ handler.add(MessageEvent, message=TextMessage)
