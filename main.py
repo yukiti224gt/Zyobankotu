@@ -76,7 +76,7 @@ def handle_message(event):
     conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
     if m != None:
-        sql = "SELECT daparture_time FROM  time_record WHERE daparture_time > '" + \
+        sql = "SELECT departure_time FROM  time_record WHERE departure_time > '" + \
             m.group(0)+"' limit 5;"
         c.execute(sql)
         ret = c.fetchall()
@@ -113,7 +113,7 @@ def handle_message(event):
                 )
             )
         )
-    else:
+        else:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(
