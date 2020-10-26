@@ -81,7 +81,7 @@ def handle_message(event):
         c.execute(sql)
         ret = c.fetchall()
 
-        if ret >= "21:00":
+        if ret >= int("21:00"):
             print(1)
         else:
             line_bot_api.reply_message(
