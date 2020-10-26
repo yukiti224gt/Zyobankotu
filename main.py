@@ -81,41 +81,43 @@ def handle_message(event):
         c.execute(sql)
         ret = c.fetchall()
 
-        if ret >= int("21:00"):
-            print(1)
-        else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                messages=TemplateSendMessage(
-                    alt_text="時刻検索結果",
-                    template=ButtonsTemplate(
-                        text="バス時刻表検索",
-                        actions=[
-                            PostbackTemplateAction(
-                                label=ret[0][0].strftime(
-                                    "%H:%M") + "発 ",
-                                data="is_show=0"
-                            ),
-                            PostbackTemplateAction(
-                                label=ret[1][0].strftime(
-                                    "%H:%M") + "発 ",
-                                data="is_show=1"
-                            ),
+        for i in range(4):
+            print(ret[i][0])
+        # if ret >= int(21: 00):
+        #     print(1)
+        # else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            messages=TemplateSendMessage(
+                alt_text="時刻検索結果",
+                template=ButtonsTemplate(
+                    text="バス時刻表検索",
+                    actions=[
+                        PostbackTemplateAction(
+                            label=ret[0][0].strftime(
+                                "%H:%M") + "発 ",
+                            data="is_show=0"
+                        ),
+                        PostbackTemplateAction(
+                            label=ret[1][0].strftime(
+                                "%H:%M") + "発 ",
+                            data="is_show=1"
+                        ),
 
-                            PostbackTemplateAction(
-                                label=ret[2][0].strftime(
-                                    "%H:%M") + "発 ",
-                                data="is_show=2"
-                            ),
-                            PostbackTemplateAction(
-                                label=ret[3][0].strftime(
-                                    "%H:%M") + "発 ",
-                                data="is_show=3"
-                            )
-                        ]
-                    )
+                        PostbackTemplateAction(
+                            label=ret[2][0].strftime(
+                                "%H:%M") + "発 ",
+                            data="is_show=2"
+                        ),
+                        PostbackTemplateAction(
+                            label=ret[3][0].strftime(
+                                "%H:%M") + "発 ",
+                            data="is_show=3"
+                        )
+                    ]
                 )
             )
+        )
 
     else:
         line_bot_api.reply_message(
