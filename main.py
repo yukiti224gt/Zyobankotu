@@ -83,7 +83,7 @@ def handle_message(event):
 
         # for i in range(4):
         #     print(ret[i][0])
-        if ret[0][0] >= "21:00":
+        if len(ret) <= 3:
             print(1)
         else:
             line_bot_api.reply_message(
