@@ -81,7 +81,58 @@ def handle_message(event):
         c.execute(sql)
         ret = c.fetchall()
 
-        if len(ret) <= 3:
+        if len(ret) == 3:
+            line_bot_api.reply_message(
+                event.reply_token,
+                messages=TemplateSendMessage(
+                    alt_text="時刻検索結果",
+                    template=ButtonsTemplate(
+                        text="バス時刻表検索",
+                        actions=[
+                            PostbackTemplateAction(
+                                label=ret[0][0].strftime(
+                                    "%H:%M") + "発 ",
+                                data="is_show=0"
+                            ),
+                            PostbackTemplateAction(
+                                label=ret[1][0].strftime(
+                                    "%H:%M") + "発 ",
+                                data="is_show=1"
+                            ),
+
+                            PostbackTemplateAction(
+                                label=ret[2][0].strftime(
+                                    "%H:%M") + "発 ",
+                                data="is_show=2"
+                            )
+                        ]
+                    )
+                )
+            )
+
+        elif len(ret) == 2:
+            line_bot_api.reply_message(
+                event.reply_token,
+                messages=TemplateSendMessage(
+                    alt_text="時刻検索結果",
+                    template=ButtonsTemplate(
+                        text="バス時刻表検索",
+                        actions=[
+                            PostbackTemplateAction(
+                                label=ret[0][0].strftime(
+                                    "%H:%M") + "発 ",
+                                data="is_show=0"
+                            ),
+                            PostbackTemplateAction(
+                                label=ret[1][0].strftime(
+                                    "%H:%M") + "発 ",
+                                data="is_show=1"
+                            )
+                        ]
+                    )
+                )
+            )
+        elif len(ret) == 1:
             line_bot_api.reply_message(
                 event.reply_token,
                 messages=TemplateSendMessage(
@@ -98,6 +149,7 @@ def handle_message(event):
                     )
                 )
             )
+
         else:
             line_bot_api.reply_message(
                 event.reply_token,
