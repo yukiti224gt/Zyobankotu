@@ -149,6 +149,12 @@ def handle_message(event):
                     )
                 )
             )
+        elif len(ret) == 0:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(
+                    text="入力された時刻以降のバスはありません。")
+            )
 
         else:
             line_bot_api.reply_message(
