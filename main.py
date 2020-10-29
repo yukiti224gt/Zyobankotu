@@ -69,7 +69,6 @@ def on_follow(event):
         c.close()
 
 
-@handler.add(PostbackEvent)
 @ handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
@@ -196,6 +195,26 @@ def handle_message(event):
             TextSendMessage(
                 text="出発したい時間を入力してください！\nその後の直近４件の発車時刻を教えます。\n(例)09:00, 12:00, 15:30")
         )
+
+
+@handler.add(PostbackEvent)
+def post_back(event):
+    event_data = event.postback.data
+    if event_data == 'is_show=0':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text="時間に余裕を持ってバス停へ行ってください！"))
+
+    elif event_data == 'is_show=1':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text="５分前行動を心がけて！"))
+
+    elif event_data == 'is_show=2':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text="時間の５分前ぐらいを目安にタイマーセット！"))
+
+    elif event_data == 'is_show=3':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text="時間に余裕持ちすぎないように！"))
 
 
 if __name__ == "__main__":
