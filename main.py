@@ -74,6 +74,10 @@ def handle_message(event):
     m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
     conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
+
+    m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
+    conn = psycopg2.connect(DATABASE_URL)
+    c = conn.cursor()
     if m != None:
         sql = "SELECT departure_time FROM  time_record WHERE departure_time > '" + \
             m.group(0)+"' limit 5;"
