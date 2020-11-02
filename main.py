@@ -74,12 +74,8 @@ def handle_message(event):
     m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
     conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
-
-    m = re.match(r'^([01][0-9]|2[0-3]):[0-5][0-9]$', event.message.text)
-    conn = psycopg2.connect(DATABASE_URL)
-    c = conn.cursor()
     if m != None:
-        sql = "SELECT departure_time FROM  time_record WHERE departure_time > '" + \
+        sql = "SELECT departure_time, arrival_time FROM time_record WHERE departure_time > '" + \
             m.group(0)+"' limit 5;"
         c.execute(sql)
         ret = c.fetchall()
@@ -94,18 +90,21 @@ def handle_message(event):
                         actions=[
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[0][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[1][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=1"
                             ),
 
                             PostbackTemplateAction(
                                 label=ret[2][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[2][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=2"
                             )
                         ]
@@ -123,12 +122,14 @@ def handle_message(event):
                         actions=[
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[0][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[1][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=1"
                             )
                         ]
@@ -145,7 +146,8 @@ def handle_message(event):
                         actions=[
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[0][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=0"
                             )
                         ]
@@ -169,23 +171,27 @@ def handle_message(event):
                         actions=[
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[0][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[1][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=1"
                             ),
 
                             PostbackTemplateAction(
                                 label=ret[2][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[2][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=2"
                             ),
                             PostbackTemplateAction(
                                 label=ret[3][0].strftime(
-                                    "%H:%M") + "発 ",
+                                    "%H:%M") + "発 " + ret[3][1].strftime(
+                                    "%H:%M") + "着 ",
                                 data="is_show=3"
                             )
                         ]
