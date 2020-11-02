@@ -91,20 +91,20 @@ def handle_message(event):
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
                                     "%H:%M") + "発 " + ret[0][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
                                     "%H:%M") + "発 " + ret[1][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=1"
                             ),
 
                             PostbackTemplateAction(
                                 label=ret[2][0].strftime(
                                     "%H:%M") + "発 " + ret[2][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=2"
                             )
                         ]
@@ -123,13 +123,13 @@ def handle_message(event):
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
                                     "%H:%M") + "発 " + ret[0][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
                                     "%H:%M") + "発 " + ret[1][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=1"
                             )
                         ]
@@ -147,7 +147,7 @@ def handle_message(event):
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
                                     "%H:%M") + "発 " + ret[0][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=0"
                             )
                         ]
@@ -172,26 +172,26 @@ def handle_message(event):
                             PostbackTemplateAction(
                                 label=ret[0][0].strftime(
                                     "%H:%M") + "発 " + ret[0][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=0"
                             ),
                             PostbackTemplateAction(
                                 label=ret[1][0].strftime(
                                     "%H:%M") + "発 " + ret[1][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=1"
                             ),
 
                             PostbackTemplateAction(
                                 label=ret[2][0].strftime(
                                     "%H:%M") + "発 " + ret[2][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=2"
                             ),
                             PostbackTemplateAction(
                                 label=ret[3][0].strftime(
                                     "%H:%M") + "発 " + ret[3][1].strftime(
-                                    "%H:%M") + "着 ",
+                                    "%H:%M") + "着",
                                 data="is_show=3"
                             )
                         ]
@@ -203,7 +203,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(
-                text="出発したい時間を入力してください！\nその後の直近４件の発車時刻を教えます。\n(例)09:00, 12:00, 15:30")
+                text="出発したい時間を入力してください！\nその後の直近４件の発着時刻を教えます。\n(例)09:00, 12:00, 15:30\n※スクールバスや文◎の付いたバスは含んでいません。")
         )
 
 
